@@ -1,0 +1,22 @@
+driverClass = com.mysql.jdbc.Driver
+jdbcUrl = jdbc:mysql://120.55.168.86:3306/wx_manage?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+username = root
+password = 
+
+# 微信服务器回调所用的 token
+token=__my__token__
+
+# 测试用的账号
+#appId=yourAppId
+#appSecret=yourAppSecret
+
+appId=wxc563397907c85f4d
+appSecret=fa35e99e165b78fd1af86629d54c5b79
+encryptMessage = false
+encodingAesKey = FLzUsYfBZtGF6sDws3sdfke9uCPQV8lgXGk0Up1pcrP
+
+#是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
+#encryptMessage=true
+#encodingAesKey=yourEncodingAesKey
+
+
