@@ -8,5 +8,10 @@ package com.program.somate.controller;
  * @version V1.0
  */
 public class SomatePayController extends BaseController {
-
+	
+	public void index() {
+		logger.error("ssss");
+		logger.info("ssss");
+	}
+	
 }

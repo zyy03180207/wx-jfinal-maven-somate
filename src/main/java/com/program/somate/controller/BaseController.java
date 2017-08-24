@@ -1,5 +1,7 @@
 package com.program.somate.controller;
 
+import org.apache.log4j.Logger;
+
 import com.jfinal.core.Controller;
 /**
  * 
@@ -11,4 +13,6 @@ import com.jfinal.core.Controller;
  */
 public class BaseController extends Controller {
 
+	public Logger logger = Logger.getLogger(this.getClass());
+	
 }
