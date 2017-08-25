@@ -31,6 +31,7 @@ import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutNewsMsg;
+import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 import com.program.somate.util.WeixinUtil;
 /**
  * 接收微信消息推送
@@ -51,6 +52,9 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInTextMsg(InTextMsg inTextMsg) {
 		// TODO Auto-generated method stub
+		OutTextMsg outTextMsg = new OutTextMsg(inTextMsg);
+		outTextMsg.setContent("你好");
+		render(outTextMsg);
 	}
 
 	@Override
