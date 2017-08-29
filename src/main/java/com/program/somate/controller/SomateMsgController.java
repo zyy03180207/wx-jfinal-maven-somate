@@ -1,5 +1,8 @@
 package com.program.somate.controller;
 
+import org.apache.log4j.Logger;
+
+import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiConfig;
 import com.jfinal.weixin.sdk.jfinal.MsgController;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
@@ -43,6 +46,8 @@ import com.program.somate.util.WeixinUtil;
  */
 public class SomateMsgController extends MsgController {
 
+	Logger logger = Logger.getLogger(SomateMsgController.class);
+	
 	@Override
 	public ApiConfig getApiConfig() {
 		// TODO Auto-generated method stub
@@ -54,6 +59,7 @@ public class SomateMsgController extends MsgController {
 		// TODO Auto-generated method stub
 		OutTextMsg outTextMsg = new OutTextMsg(inTextMsg);
 		outTextMsg.setContent("你好");
+		logger.info("accessToken=" + AccessTokenApi.getAccessTokenStr());
 		render(outTextMsg);
 	}
 

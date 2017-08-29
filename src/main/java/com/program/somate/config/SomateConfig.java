@@ -34,8 +34,8 @@ public class SomateConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// TODO Auto-generated method stub
 		me.add("/msg", SomateMsgController.class);
-		me.add("/api", SomateApiController.class, "/api");
-		me.add("/pay", SomatePayController.class);
+		me.add("/api", SomateApiController.class, "/pages");
+		me.add("/pay", SomatePayController.class, "/pages");
 		me.add("/", IndexController.class, "/");
 	}
 
