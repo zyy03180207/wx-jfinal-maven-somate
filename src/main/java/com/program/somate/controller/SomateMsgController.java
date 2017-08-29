@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 
 import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiConfig;
+import com.jfinal.weixin.sdk.api.ApiResult;
+import com.jfinal.weixin.sdk.api.UserApi;
 import com.jfinal.weixin.sdk.jfinal.MsgController;
 import com.jfinal.weixin.sdk.jfinal.MsgControllerAdapter;
 import com.jfinal.weixin.sdk.msg.in.InImageMsg;
@@ -35,6 +37,7 @@ import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
 import com.jfinal.weixin.sdk.msg.out.OutNewsMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
+import com.program.somate.model.Fans;
 import com.program.somate.util.WeixinUtil;
 /**
  * 接收微信消息推送
@@ -108,7 +111,24 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInFollowEvent(InFollowEvent inFollowEvent) {
 		// TODO Auto-generated method stub
-		
+		OutTextMsg msg = new OutTextMsg(inFollowEvent);
+		//获取OpenId
+		String openId = inFollowEvent.getFromUserName();
+		if(inFollowEvent.getEvent().equals(InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE)) {
+			//关注事件
+			msg.setContent("欢迎关注Somates平台");
+			ApiResult result = UserApi.getUserInfo(openId);
+			if(result != null) {
+				Fans fans = new Fans();
+				fans.set("subscribe", result.get("subscribe")).set(attr, value)
+			}
+		} else if(inFollowEvent.getEvent().equals(InFollowEvent.EVENT_INFOLLOW_UNSUBSCRIBE)) {
+			//取消关注事件
+			msg.setContent("欢迎关注Somates平台");
+		} else {
+			
+		}
+		render(msg);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import com.program.somate.controller.IndexController;
 import com.program.somate.controller.SomateApiController;
 import com.program.somate.controller.SomateMsgController;
 import com.program.somate.controller.SomatePayController;
+import com.program.somate.model.Fans;
 
 public class SomateConfig extends JFinalConfig {
 
@@ -56,6 +57,7 @@ public class SomateConfig extends JFinalConfig {
 		arp.setShowSql(true);
 		arp.setDialect(new MysqlDialect());
 		me.add(arp);
+		arp.addMapping("tb_fans", "cid", Fans.class);
 	}
 	
 	@Override
