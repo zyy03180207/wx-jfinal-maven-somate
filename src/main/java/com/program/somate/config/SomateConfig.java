@@ -19,6 +19,8 @@ import com.program.somate.controller.SomateApiController;
 import com.program.somate.controller.SomateMsgController;
 import com.program.somate.controller.SomatePayController;
 import com.program.somate.model.Fans;
+import com.program.somate.model.NowFunction;
+import com.program.somate.model.WxConfig;
 
 public class SomateConfig extends JFinalConfig {
 
@@ -47,7 +49,7 @@ public class SomateConfig extends JFinalConfig {
 		String password = new String(PropKit.get("password"));
 		return new C3p0Plugin(jdbcUrl, username, password, driver);
 	}
-	
+
 	@Override
 	public void configPlugin(Plugins me) {
 		// TODO Auto-generated method stub
@@ -58,24 +60,26 @@ public class SomateConfig extends JFinalConfig {
 		arp.setDialect(new MysqlDialect());
 		me.add(arp);
 		arp.addMapping("tb_fans", "cid", Fans.class);
+		arp.addMapping("tb_wx_config", "id", WxConfig.class);
+		arp.addMapping("tb_now_function", "id", NowFunction.class);
 	}
-	
+
 	@Override
 	public void configEngine(Engine me) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configHandler(Handlers me) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void configInterceptor(Interceptors me) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
