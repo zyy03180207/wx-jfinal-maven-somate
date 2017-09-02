@@ -35,10 +35,16 @@ import com.jfinal.weixin.sdk.msg.in.event.InVerifyFailEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InVerifySuccessEvent;
 import com.jfinal.weixin.sdk.msg.in.event.InWifiEvent;
 import com.jfinal.weixin.sdk.msg.in.speech_recognition.InSpeechRecognitionResults;
+import com.jfinal.weixin.sdk.msg.out.OutMsg;
 import com.jfinal.weixin.sdk.msg.out.OutNewsMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
+import com.program.somate.config.Common;
+import com.program.somate.config.WxConfigUtil;
 import com.program.somate.model.Fans;
 import com.program.somate.model.WxConfig;
+import com.program.somate.selector.InMsgSelector;
+import com.program.somate.selector.fun.SingleChatFun;
+import com.program.somate.util.StringUtil;
 import com.program.somate.util.WeixinUtil;
 
 /**
@@ -63,46 +69,57 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInTextMsg(InTextMsg inTextMsg) {
 		// TODO Auto-generated method stub
-		OutTextMsg outTextMsg = new OutTextMsg(inTextMsg);
-		outTextMsg.setContent("你好");
-		logger.info("accessToken=" + AccessTokenApi.getAccessTokenStr());
+		InMsgSelector inMsgSelector = new InMsgSelector(inTextMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
 		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInImageMsg(InImageMsg inImageMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inImageMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inVoiceMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInVideoMsg(InVideoMsg inVideoMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inVideoMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inShortVideoMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInLocationMsg(InLocationMsg inLocationMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inLocationMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
 	protected void processInLinkMsg(InLinkMsg inLinkMsg) {
 		// TODO Auto-generated method stub
-
+		InMsgSelector inMsgSelector = new InMsgSelector(inLinkMsg);
+		OutMsg outTextMsg = inMsgSelector.exect();
+		render(outTextMsg);
 	}
 
 	@Override
@@ -136,9 +153,9 @@ public class SomateMsgController extends MsgController {
 			} else {
 				logger.error("获取用户信息异常：---->openId=[" + openId + "]");
 			}
-			WxConfig wxConfig = WxConfig.dao.findByKey("FOLLOW_RETURN");
-			if (wxConfig != null) {
-				msg.setContent(wxConfig.getStr("cfgVal"));
+			String cfgVal = WxConfigUtil.getCfgKey("FOLLOW_RETURN");
+			if (!StringUtil.strisNotNull(cfgVal)) {
+				msg.setContent(cfgVal);
 			} else {
 				msg.setContent("欢迎关注Somates平台");
 			}
@@ -179,7 +196,18 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInMenuEvent(InMenuEvent inMenuEvent) {
 		// TODO Auto-generated method stub
-
+		OutMsg outMsg = null;
+		String eventKey = inMenuEvent.getEventKey();
+		switch (eventKey) {
+		case Common.SINGLECHAT:
+			SingleChatFun singleChat = new SingleChatFun(inMenuEvent);
+			outMsg = singleChat.matchSingleChat();
+			break;
+		default:
+			
+			break;
+		}
+		render(outMsg);
 	}
 
 	@Override

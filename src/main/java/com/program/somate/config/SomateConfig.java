@@ -20,6 +20,7 @@ import com.program.somate.controller.SomateMsgController;
 import com.program.somate.controller.SomatePayController;
 import com.program.somate.model.Fans;
 import com.program.somate.model.NowFunction;
+import com.program.somate.model.SingleChat;
 import com.program.somate.model.WxConfig;
 
 public class SomateConfig extends JFinalConfig {
@@ -62,6 +63,7 @@ public class SomateConfig extends JFinalConfig {
 		arp.addMapping("tb_fans", "cid", Fans.class);
 		arp.addMapping("tb_wx_config", "id", WxConfig.class);
 		arp.addMapping("tb_now_function", "id", NowFunction.class);
+		arp.addMapping("tb_single_chat", "id", SingleChat.class);
 	}
 
 	@Override
