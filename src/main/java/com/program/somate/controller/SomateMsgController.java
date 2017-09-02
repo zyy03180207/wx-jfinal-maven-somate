@@ -69,57 +69,58 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInTextMsg(InTextMsg inTextMsg) {
 		// TODO Auto-generated method stub
+		logger.info("accessToken=[" + AccessTokenApi.getAccessTokenStr() + "]");
 		InMsgSelector inMsgSelector = new InMsgSelector(inTextMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInImageMsg(InImageMsg inImageMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inImageMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inVoiceMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInVideoMsg(InVideoMsg inVideoMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inVideoMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inShortVideoMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInLocationMsg(InLocationMsg inLocationMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inLocationMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInLinkMsg(InLinkMsg inLinkMsg) {
 		// TODO Auto-generated method stub
 		InMsgSelector inMsgSelector = new InMsgSelector(inLinkMsg);
-		OutMsg outTextMsg = inMsgSelector.exect();
-		render(outTextMsg);
+		OutMsg outMsg = inMsgSelector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override
@@ -204,7 +205,7 @@ public class SomateMsgController extends MsgController {
 			outMsg = singleChat.matchSingleChat();
 			break;
 		default:
-			
+
 			break;
 		}
 		render(outMsg);
@@ -294,4 +295,11 @@ public class SomateMsgController extends MsgController {
 
 	}
 
+	public void rendMsg(OutMsg outMsg) {
+		if (outMsg == null) {
+			renderOutTextMsg("success");
+		} else {
+			render(outMsg);
+		}
+	}
 }

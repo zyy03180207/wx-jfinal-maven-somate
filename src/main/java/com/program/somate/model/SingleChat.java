@@ -11,13 +11,19 @@ public class SingleChat extends Model<SingleChat> {
 		if (age != null) {
 			sql = sql.replaceAll("{1}", "t.age ='" + age + "'");
 		}
-		if (age != null) {
+		if (sex != null) {
 			sql = sql.replaceAll("{2}", "t.sex ='" + sex + "'");
 		}
-		if (age != null) {
+		if (city != null) {
 			sql = sql.replaceAll("{3}", "t.city ='" + city + "'");
 		}
 		sql = sql.replaceAll("\\{\\d\\}", "");
 		return dao.findFirst(sql);
 	}
+
+	public SingleChat findByMyOpenId(String openId) {
+		String sql = "SELECT * FROM tb_single_chat WHERE myopenid = ? AND ishandle = 'B'";
+		return dao.findFirst(sql, openId);
+	}
+
 }
