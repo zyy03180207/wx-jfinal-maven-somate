@@ -3,12 +3,11 @@ package com.program.somate.controller;
 import java.util.TreeMap;
 
 import com.jfinal.kit.PropKit;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.api.JsTicketApi;
 import com.jfinal.weixin.sdk.api.JsTicketApi.JsApiType;
 import com.program.somate.util.WeixinUtil;
 
-public class IndexController extends BaseController {
+public class SomateIndexController extends BaseController {
 
 	public void index() {
 		String url = this.getRequest().getRequestURL().toString();
@@ -29,4 +28,8 @@ public class IndexController extends BaseController {
 		renderJsp("pages/vip_recharge.jsp");
 	}
 
+	public void signUp() {
+		renderJsp("signup.jsp");
+	}
+	
 }

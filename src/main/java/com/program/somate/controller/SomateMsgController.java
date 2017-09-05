@@ -149,7 +149,7 @@ public class SomateMsgController extends MsgController {
 						.set("country", result.get("country")).set("language", result.get("language"))
 						.set("headimgurl", result.get("headimgurl")).set("subscribe_time", result.get("subscribe_time"))
 						.set("unionid", result.get("unionid")).set("remark", result.get("remark"))
-						.set("groupid", result.get("groupid")).set("tagid_list", result.get("tagid_list"));
+						.set("groupid", result.get("groupid"));
 				fans.save();
 			} else {
 				logger.error("获取用户信息异常：---->openId=[" + openId + "]");
@@ -297,7 +297,7 @@ public class SomateMsgController extends MsgController {
 
 	public void rendMsg(OutMsg outMsg) {
 		if (outMsg == null) {
-			renderOutTextMsg("success");
+			renderText("success");
 		} else {
 			render(outMsg);
 		}

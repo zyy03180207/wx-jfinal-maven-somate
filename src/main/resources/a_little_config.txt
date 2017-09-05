@@ -9,10 +9,10 @@ devMode=true
 token=zhangyangyang
 
 # 测试用的账号
-appId=wxabc2cdd631a15420
-appSecret=bb9bc0ff9776220d29bb6a51ab87787f
+appId=wxc563397907c85f4d
+appSecret=fa35e99e165b78fd1af86629d54c5b79
 encryptMessage=false
-encodingAesKey=dp3P6f3W3f3p33w9319Ip21h3mFEcP9pz2I6Ppm3vcI
+encodingAesKey=FLzUsYfBZtGF6sDws3sdfke9uCPQV8lgXGk0Up1pcrP
 
 #是否对消息进行加密，是否对消息进行加密，对应于微信平台的消息加解密方式，false支持明文模式及兼容模式，true支持安全模式及兼容模式
 #encryptMessage=true

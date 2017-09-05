@@ -14,7 +14,7 @@ import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.encrypt.WXBizMsgCrypt;
-import com.program.somate.controller.IndexController;
+import com.program.somate.controller.SomateIndexController;
 import com.program.somate.controller.SomateApiController;
 import com.program.somate.controller.SomateMsgController;
 import com.program.somate.controller.SomatePayController;
@@ -40,7 +40,7 @@ public class SomateConfig extends JFinalConfig {
 		me.add("/msg", SomateMsgController.class);
 		me.add("/api", SomateApiController.class, "/pages");
 		me.add("/pay", SomatePayController.class, "/pages");
-		me.add("/", IndexController.class, "/");
+		me.add("/somate", SomateIndexController.class, "/pages");
 	}
 
 	public static C3p0Plugin createDruidPlugin() {

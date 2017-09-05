@@ -7,15 +7,15 @@ public class SingleChat extends Model<SingleChat> {
 	public static final SingleChat dao = new SingleChat();
 
 	public SingleChat findByCondition(String age, String sex, String city) {
-		String sql = "SELECT * FROM tb_single_chat t WHERE {1} AND {2} AND {3} AND t.ishandle = 'A'";
+		String sql = "SELECT * FROM tb_single_chat t WHERE {1}  {2}  {3} t.ishandle = 'A'";
 		if (age != null) {
-			sql = sql.replaceAll("{1}", "t.age ='" + age + "'");
+			sql = sql.replaceAll("{1}", "t.age ='" + age + "' AND");
 		}
 		if (sex != null) {
-			sql = sql.replaceAll("{2}", "t.sex ='" + sex + "'");
+			sql = sql.replaceAll("{2}", "t.sex ='" + sex + "' AND");
 		}
 		if (city != null) {
-			sql = sql.replaceAll("{3}", "t.city ='" + city + "'");
+			sql = sql.replaceAll("{3}", "t.city ='" + city + "' AND");
 		}
 		sql = sql.replaceAll("\\{\\d\\}", "");
 		return dao.findFirst(sql);
