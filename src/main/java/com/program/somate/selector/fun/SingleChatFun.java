@@ -1,6 +1,9 @@
 package com.program.somate.selector.fun;
 
 import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.tx.Tx;
@@ -18,13 +21,16 @@ import com.program.somate.model.SingleChat;
 
 /**
  * 单聊功能
+ * 
  * @author yangyang.zhang
- * @Package com.program.somate.selector.fun 
- * @Date 2017年9月1日 下午6:49:23 
+ * @Package com.program.somate.selector.fun
+ * @Date 2017年9月1日 下午6:49:23
  * @Description TODO(用一句话描述该文件做什么)
  * @version V1.0
  */
 public class SingleChatFun extends BaseFun {
+
+	Logger logger = Logger.getLogger(SingleChatFun.class);
 
 	public SingleChatFun(InMsg inMsg) {
 		super(inMsg);
@@ -39,14 +45,23 @@ public class SingleChatFun extends BaseFun {
 	public OutMsg matchSingleChat() {
 		OutMsg outMsg = null;
 		String openId = inMsg.getFromUserName();
+		logger.info("openId=[" + openId + "]");
+		SingleChat chat1 = SingleChat.dao.findByHandle(inMsg.getFromUserName(), "B");
+		if (chat1 != null) {
+			outMsg = new OutTextMsg(inMsg).setContent(Common.TITLE + "本次搭讪结束后才可以再次搭讪哦~如需退出请回复【退出】。");
+			return outMsg;
+		}
 		// 获取自己的匹配条件
 		initFun("SINGLECHAT");
 		// 获取符合条件的人（先不加入条件筛选）
-		SingleChat singleChat = SingleChat.dao.findByCondition(null, null, null);
+		SingleChat singleChat = SingleChat.dao.findByCondition(null, null, null, openId);
 		if (singleChat == null) {
-			singleChat = new SingleChat();
-			singleChat.set("myopenid", openId).set("createtime", new Date()).set("ishandle", "A").set("age", "")
-					.set("sex", "").set("city", "").save();
+			singleChat = SingleChat.dao.findByHandle(openId, "A");
+			if (singleChat == null) {
+				singleChat = new SingleChat();
+				singleChat.set("myopenid", openId).set("createtime", new Date()).set("ishandle", "A").set("age", "")
+						.set("sex", "").set("city", "").save();
+			}
 			outMsg = new OutTextMsg(inMsg).setContent(Common.TITLE + "正在为你匹配搭讪目标，请耐心等待");
 			return outMsg;
 		}
@@ -97,6 +112,21 @@ public class SingleChatFun extends BaseFun {
 			outMsg = new OutTextMsg(inMsg).setContent(Common.TITLE + "不支持此类消息");
 			break;
 		}
+		return outMsg;
+	}
+
+	@Before(Tx.class)
+	public OutMsg exitSingleChat() {
+		OutMsg outMsg = null;
+		String openId = inMsg.getFromUserName();
+		SingleChat singleChat = SingleChat.dao.findByMyOpenId(openId);
+		List<SingleChat> chats = SingleChat.dao.findByHandleList(openId, "B");
+		for (int i = 0; i < chats.size(); i++) {
+			SingleChat chat = chats.get(i);
+			chat.set("ishandle", "D").update();
+		}
+		outMsg = new OutTextMsg(inMsg).setContent(Common.TITLE + "你已退出聊天");
+		CustomServiceApi.sendText(singleChat.getStr("openid"), Common.TITLE + "对方已结束聊天");
 		return outMsg;
 	}
 

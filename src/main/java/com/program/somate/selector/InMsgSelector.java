@@ -3,6 +3,7 @@ package com.program.somate.selector;
 import java.util.Date;
 
 import com.jfinal.weixin.sdk.msg.in.InMsg;
+import com.jfinal.weixin.sdk.msg.in.InTextMsg;
 import com.jfinal.weixin.sdk.msg.out.OutMsg;
 import com.jfinal.weixin.sdk.msg.out.OutTextMsg;
 import com.program.somate.config.Common;
@@ -29,7 +30,16 @@ public class InMsgSelector extends BaseSelector {
 		switch (function.getStr("function")) {
 		case Common.SINGLECHAT:
 			SingleChatFun singleChat = new SingleChatFun(inMsg);
-			outMsg = singleChat.distributeChat();
+			if (inMsg instanceof InTextMsg) {
+				InTextMsg textMsg = (InTextMsg) inMsg;
+				if ("退出".equals(textMsg.getContent())) {
+					outMsg = singleChat.exitSingleChat();
+				} else {
+					outMsg = singleChat.distributeChat();
+				}
+			} else {
+				outMsg = singleChat.distributeChat();
+			}
 			break;
 
 		default:

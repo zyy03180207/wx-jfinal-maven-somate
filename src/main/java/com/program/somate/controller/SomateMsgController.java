@@ -139,20 +139,26 @@ public class SomateMsgController extends MsgController {
 		if (inFollowEvent.getEvent().equals(InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE)) {
 			// 关注事件
 			logger.info("----------关注----------");
-			ApiResult result = UserApi.getUserInfo(openId);
-			logger.info("userInfo----->" + result.toString());
-			if (result != null) {
-				Fans fans = new Fans();
-				fans.set("subscribe", result.get("subscribe")).set("openid", result.get("openid"))
-						.set("nickname", result.get("nickname")).set("sex", result.get("sex"))
-						.set("city", result.get("city")).set("province", result.get("province"))
-						.set("country", result.get("country")).set("language", result.get("language"))
-						.set("headimgurl", result.get("headimgurl")).set("subscribe_time", result.get("subscribe_time"))
-						.set("unionid", result.get("unionid")).set("remark", result.get("remark"))
-						.set("groupid", result.get("groupid"));
-				fans.save();
+			Fans oldFans = Fans.dao.findByOpenId(openId);
+			if (oldFans == null) {
+				ApiResult result = UserApi.getUserInfo(openId);
+				logger.info("userInfo----->" + result.toString());
+				if (result != null) {
+					Fans fans = new Fans();
+					fans.set("subscribe", result.get("subscribe")).set("openid", result.get("openid"))
+							.set("nickname", result.get("nickname")).set("sex", result.get("sex"))
+							.set("city", result.get("city")).set("province", result.get("province"))
+							.set("country", result.get("country")).set("language", result.get("language"))
+							.set("headimgurl", result.get("headimgurl"))
+							.set("subscribe_time", result.get("subscribe_time")).set("unionid", result.get("unionid"))
+							.set("remark", result.get("remark")).set("groupid", result.get("groupid"));
+					fans.save();
+				} else {
+					logger.error("获取用户信息异常：---->openId=[" + openId + "]");
+				}
 			} else {
-				logger.error("获取用户信息异常：---->openId=[" + openId + "]");
+				logger.info("老用户关注：---->openId=[" + openId + "]");
+				oldFans.set("subscribe", 1).update();
 			}
 			String cfgVal = WxConfigUtil.getCfgKey("FOLLOW_RETURN");
 			if (!StringUtil.strisNotNull(cfgVal)) {
@@ -160,6 +166,7 @@ public class SomateMsgController extends MsgController {
 			} else {
 				msg.setContent("欢迎关注Somates平台");
 			}
+			render(msg);
 		} else if (inFollowEvent.getEvent().equals(InFollowEvent.EVENT_INFOLLOW_UNSUBSCRIBE)) {
 			logger.info("----------取消关注----------");
 			Fans fans = Fans.dao.findByOpenId(openId);
@@ -173,7 +180,6 @@ public class SomateMsgController extends MsgController {
 			renderText("success");
 		}
 		logger.info("----------微信公众号关注事件结束----------");
-		render(msg);
 	}
 
 	@Override

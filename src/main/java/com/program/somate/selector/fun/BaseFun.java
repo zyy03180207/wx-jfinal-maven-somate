@@ -28,6 +28,7 @@ public class BaseFun {
 		if (function == null) {
 			function = new NowFunction();
 			function.set("openid", inMsg.getFromUserName()).set("function", fun).set("createdate", new Date());
+			function.save();
 		} else {
 			function.set("function", fun).update();
 		}
