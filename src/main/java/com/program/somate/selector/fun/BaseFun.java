@@ -8,7 +8,6 @@ import com.program.somate.model.NowFunction;
 
 /**
  * 所有功能的基类
- * 
  * @author yangyang.zhang
  * @Package com.program.somate.selector.fun
  * @Date 2017年9月1日 下午6:49:40
@@ -22,7 +21,7 @@ public class BaseFun {
 	public BaseFun(InMsg inMsg) {
 		this.inMsg = inMsg;
 	}
-
+	//修改功能选项
 	public void initFun(String fun) {
 		NowFunction function = NowFunction.dao.findByOpenId(inMsg.getFromUserName());
 		if (function == null) {

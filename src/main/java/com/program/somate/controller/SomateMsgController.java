@@ -42,6 +42,8 @@ import com.program.somate.config.Common;
 import com.program.somate.config.WxConfigUtil;
 import com.program.somate.model.Fans;
 import com.program.somate.model.WxConfig;
+import com.program.somate.selector.BaseSelector;
+import com.program.somate.selector.FunSelector;
 import com.program.somate.selector.InMsgSelector;
 import com.program.somate.selector.fun.SingleChatFun;
 import com.program.somate.util.StringUtil;
@@ -70,56 +72,56 @@ public class SomateMsgController extends MsgController {
 	protected void processInTextMsg(InTextMsg inTextMsg) {
 		// TODO Auto-generated method stub
 		logger.info("accessToken=[" + AccessTokenApi.getAccessTokenStr() + "]");
-		InMsgSelector inMsgSelector = new InMsgSelector(inTextMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inTextMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInImageMsg(InImageMsg inImageMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inImageMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inImageMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInVoiceMsg(InVoiceMsg inVoiceMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inVoiceMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inVoiceMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInVideoMsg(InVideoMsg inVideoMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inVideoMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inVideoMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInShortVideoMsg(InShortVideoMsg inShortVideoMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inShortVideoMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inShortVideoMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInLocationMsg(InLocationMsg inLocationMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inLocationMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inLocationMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
 	@Override
 	protected void processInLinkMsg(InLinkMsg inLinkMsg) {
 		// TODO Auto-generated method stub
-		InMsgSelector inMsgSelector = new InMsgSelector(inLinkMsg);
-		OutMsg outMsg = inMsgSelector.exect();
+		BaseSelector selector = new InMsgSelector(inLinkMsg);
+		OutMsg outMsg = selector.exect();
 		rendMsg(outMsg);
 	}
 
@@ -203,18 +205,9 @@ public class SomateMsgController extends MsgController {
 	@Override
 	protected void processInMenuEvent(InMenuEvent inMenuEvent) {
 		// TODO Auto-generated method stub
-		OutMsg outMsg = null;
-		String eventKey = inMenuEvent.getEventKey();
-		switch (eventKey) {
-		case Common.SINGLECHAT:
-			SingleChatFun singleChat = new SingleChatFun(inMenuEvent);
-			outMsg = singleChat.matchSingleChat();
-			break;
-		default:
-
-			break;
-		}
-		render(outMsg);
+		BaseSelector selector = new FunSelector(inMenuEvent);
+		OutMsg outMsg = selector.exect();
+		rendMsg(outMsg);
 	}
 
 	@Override

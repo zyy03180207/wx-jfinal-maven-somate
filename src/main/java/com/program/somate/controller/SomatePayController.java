@@ -41,12 +41,12 @@ public class SomatePayController extends ApiController {
 	@Override
 	public ApiConfig getApiConfig() {
 		// TODO Auto-generated method stub
-		return WeixinUtil.getPayApiConfig();
+		return WeixinUtil.getApiConfig();
 	}
 
 	public void wxpay() {
 		String code = getPara("code");
-		SnsAccessToken accessToken = SnsAccessTokenApi.getSnsAccessToken(PropKit.get("payAppId"), PropKit.get("payAppSecret"),
+		SnsAccessToken accessToken = SnsAccessTokenApi.getSnsAccessToken(PropKit.get("appId"), PropKit.get("appSecret"),
 				code);
 		String nonceStr = WeixinUtil.getRandomString(16);
 		String timestamp = WeixinUtil.getTimeStamp();
@@ -58,10 +58,10 @@ public class SomatePayController extends ApiController {
 		this.setAttr("nonceStr", nonceStr);
 		this.setAttr("timestamp", timestamp);
 		this.setAttr("signature", WeixinUtil.getSign(paramMap));
-		this.setAttr("appId", PropKit.get("payAppId"));
+		this.setAttr("appId", PropKit.get("appId"));
 		logger.info("jsapi_ticket=[" + JsTicketApi.getTicket(JsApiType.jsapi).getTicket() + "]-----nonceStr=["
 				+ nonceStr + "]-----timestamp=[" + timestamp + "],url=[" + WeixinUtil.getUrl(this) + "]-----appId=["
-				+ PropKit.get("payAppId") + "]");
+				+ PropKit.get("appId") + "]");
 		this.setAttr("openId", accessToken.getOpenid());
 		renderJsp("vip_recharge.jsp");
 	}

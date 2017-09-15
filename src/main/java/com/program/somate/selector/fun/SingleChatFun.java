@@ -21,7 +21,6 @@ import com.program.somate.model.SingleChat;
 
 /**
  * 单聊功能
- * 
  * @author yangyang.zhang
  * @Package com.program.somate.selector.fun
  * @Date 2017年9月1日 下午6:49:23
