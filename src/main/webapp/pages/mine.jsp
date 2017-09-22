@@ -50,7 +50,7 @@
 		                    <div class="mui-media-body">搜索</div></a></li>
 		            <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"><a href="#">
 		                    <span class="mui-icon mui-icon-phone"></span>
-		                    <div class="mui-media-body">我的手机</div></a></li>
+		                    <div class="mui-media-body">我的会员</div></a></li>
 		            <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"><a href="#">
 		                    <span class="mui-icon mui-icon-gear"></span>
 		                    <div class="mui-media-body">个人设置</div></a></li>

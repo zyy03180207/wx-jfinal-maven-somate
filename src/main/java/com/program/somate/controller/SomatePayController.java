@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiConfig;
@@ -23,6 +24,7 @@ import com.jfinal.weixin.sdk.jfinal.ApiController;
 import com.jfinal.weixin.sdk.kit.IpKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.weixin.sdk.utils.JsonUtils;
+import com.program.somate.util.URLConnection;
 import com.program.somate.util.WeixinUtil;
 
 /**
@@ -68,7 +70,8 @@ public class SomatePayController extends ApiController {
 
 	public void topay() {
 		// 统一下单文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-		String appid = ApiConfigKit.getApiConfig().getAppId();
+		// String appid = ApiConfigKit.getApiConfig().getAppId();
+		String appid = "wx2967e5eafb25161a";
 		logger.info("appId=" + appid);
 		String partner = PropKit.get("mch_id");
 		String openId = this.getPara("openId");
@@ -123,5 +126,15 @@ public class SomatePayController extends ApiController {
 		String jsonStr = JsonUtils.toJson(packageParams);
 		renderJson(jsonStr);
 	}
-
+	/**
+	 * 小程序获取openId用户信息
+	 */
+	public void getUserInfo() {
+		// 071HlJK12LAzs01x85O12FEuK12HlJKn
+		String code = this.getPara("code");
+		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx2967e5eafb25161a&secret=78e776148fdaa045e290f9f1b0854e1f&js_code="
+				+ code + "&grant_type=authorization_code";
+		String result = URLConnection.doGet(url, "UTF-8");
+		renderJson(result);
+	}
 }
