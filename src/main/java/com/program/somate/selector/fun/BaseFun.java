@@ -3,7 +3,6 @@ package com.program.somate.selector.fun;
 import java.util.Date;
 
 import com.jfinal.weixin.sdk.msg.in.InMsg;
-import com.jfinal.weixin.sdk.msg.in.event.EventInMsg;
 import com.program.somate.model.NowFunction;
 
 /**

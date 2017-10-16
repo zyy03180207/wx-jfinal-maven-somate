@@ -1,17 +1,12 @@
 package com.program.somate.controller;
 
-import java.util.TreeMap;
-
 import com.jfinal.kit.PropKit;
 import com.jfinal.weixin.sdk.api.ApiResult;
-import com.jfinal.weixin.sdk.api.JsTicketApi;
 import com.jfinal.weixin.sdk.api.SnsAccessToken;
 import com.jfinal.weixin.sdk.api.SnsAccessTokenApi;
 import com.jfinal.weixin.sdk.api.UserApi;
-import com.jfinal.weixin.sdk.api.JsTicketApi.JsApiType;
 import com.program.somate.model.Fans;
 import com.program.somate.util.StringUtil;
-import com.program.somate.util.WeixinUtil;
 
 public class SomateIndexController extends BaseController {
 
