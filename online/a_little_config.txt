@@ -1,7 +1,7 @@
 driverClass = com.mysql.jdbc.Driver
-jdbcUrl = jdbc:mysql://120.55.168.86:3306/wx_manage?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+jdbcUrl = jdbc:mysql://rm-2ze9bq717i9n8s719so.mysql.rds.aliyuncs.com:3306/wx_manage?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 username = root
-password = zyy0318@:0207
+password = Zyy0318@@0207
 
 devMode=true
 
@@ -9,8 +9,17 @@ devMode=true
 token=zhangyangyang
 
 # 测试用的账号Somates
-appId=wxc563397907c85f4d
-appSecret=fa35e99e165b78fd1af86629d54c5b79
+#appId=wxc563397907c85f4d
+#appSecret=fa35e99e165b78fd1af86629d54c5b79
+
+# 正式账号
+#appId=wx7facf1d6025fc583
+#appSecret=fca018bff24bd10cc386e7d9bd488e7f
+
+# 之间的编码
+appId=wx20fc711e0646b8ce
+appSecret=2993c44ef1c034325ff26e31feb65e13
+
 encryptMessage=false
 encodingAesKey=FLzUsYfBZtGF6sDws3sdfke9uCPQV8lgXGk0Up1pcrP
 
@@ -18,7 +27,14 @@ encodingAesKey=FLzUsYfBZtGF6sDws3sdfke9uCPQV8lgXGk0Up1pcrP
 #encryptMessage=true
 #encodingAesKey=FLzUsYfBZtGF6sDws3sdfke9uCPQV8lgXGk0Up1pcrP
 #微信支付商户号和公众号ID
-payAppId=wxabc2cdd631a15420
-payAppSecret=bb9bc0ff9776220d29bb6a51ab87787f
-mch_id=1400512102
+#payAppId=wxabc2cdd631a15420
+#payAppSecret=bb9bc0ff9776220d29bb6a51ab87787f
+#十五度工作室
+#mch_id=1400512102	
+#payAppId=wx7facf1d6025fc583
+#payAppSecret=fca018bff24bd10cc386e7d9bd488e7f
+#Soamte-活动平台
+mch_id=1489057142
+#秘钥
 key=zyy03180207somateszyy03180207zyy
+

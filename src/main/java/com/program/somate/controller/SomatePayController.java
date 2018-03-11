@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.jfinal.kit.PropKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.weixin.sdk.api.ApiConfig;
+import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.api.JsTicketApi;
 import com.jfinal.weixin.sdk.api.JsTicketApi.JsApiType;
 import com.jfinal.weixin.sdk.api.PaymentApi;
@@ -65,8 +66,8 @@ public class SomatePayController extends ApiController {
 
 	public void topay() {
 		// 统一下单文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-		// String appid = ApiConfigKit.getApiConfig().getAppId();
-		String appid = "wx2967e5eafb25161a";
+		String appid = ApiConfigKit.getApiConfig().getAppId();
+//		String appid = "wx2967e5eafb25161a";	//微信小程序测试Appid
 		logger.info("appId=" + appid);
 		String partner = PropKit.get("mch_id");
 		String openId = this.getPara("openId");
@@ -76,7 +77,7 @@ public class SomatePayController extends ApiController {
 		params.put("mch_id", partner);
 		params.put("body", "Somates会员充值");
 		params.put("out_trade_no", WeixinUtil.getOrder());
-		params.put("total_fee", "100");
+		params.put("total_fee", "200000");
 
 		String ip = IpKit.getRealIp(getRequest());
 		if (StrKit.isBlank(ip)) {
